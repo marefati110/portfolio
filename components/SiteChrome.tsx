@@ -1,12 +1,16 @@
 import Link from "next/link";
 import { ChatDock } from "@/components/ChatDock";
+import { MobileAppBar, MobileFab } from "@/components/mobile/MobileChrome";
 import { SocialLinks } from "@/components/SocialLinks";
 import { links, site } from "@/content/site";
 
 export const CV_PATH = "/cv/ali-marefati-cv.pdf";
 
-/** Top bar shared by every page. Section links point at the homepage anchors. */
-export function SiteHeader() {
+/**
+ * Top bar shared by every page. Section links point at the homepage anchors.
+ * On phones it is replaced by a Material-style app bar: `title` + back arrow on detail pages.
+ */
+export function SiteHeader({ title }: { title?: string } = {}) {
   const d = site;
   return (
     <>
@@ -32,6 +36,7 @@ export function SiteHeader() {
           </a>
         </div>
       </header>
+      <MobileAppBar variant={title ? "detail" : "home"} title={title ?? d.hero.name} cvPath={CV_PATH} />
     </>
   );
 }
@@ -72,12 +77,16 @@ export function SiteFooter({ socials = true }: { socials?: boolean }) {
         note={d.chat.note}
         email={links.email}
       />
+      <MobileFab />
       <footer className="footer wrap">
         {socials && <SocialCard />}
         <div className="footer-bottom">
           <span>
             © {new Date().getFullYear()} {d.footer}
           </span>
+          <Link href="/fa" hrefLang="fa" lang="fa">
+            نسخه فارسی · علی معرفتی
+          </Link>
           <span>marefati110.ir</span>
         </div>
       </footer>

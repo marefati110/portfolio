@@ -14,7 +14,7 @@ const svg = (path: React.ReactNode) => (
   </svg>
 );
 
-const socials: Social[] = [
+export const socials: Social[] = [
   {
     name: "GitHub",
     handle: "marefati110",

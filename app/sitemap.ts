@@ -8,7 +8,20 @@ const lastModified = new Date();
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
-    { url: links.site, lastModified, changeFrequency: "monthly", priority: 1 },
+    {
+      url: links.site,
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 1,
+      alternates: { languages: { en: links.site, fa: `${links.site}/fa` } },
+    },
+    {
+      url: `${links.site}/fa`,
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.9,
+      alternates: { languages: { en: links.site, fa: `${links.site}/fa` } },
+    },
     ...caseStudies.map((c) => ({
       url: `${links.site}/work/${c.slug}`,
       lastModified,

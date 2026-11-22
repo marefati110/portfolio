@@ -6,6 +6,7 @@ import { CallPipeline } from "@/components/CallPipeline";
 import { SiteFooter, SiteHeader } from "@/components/SiteChrome";
 import { caseStudies, getCaseStudy } from "@/content/caseStudies";
 import { site } from "@/content/site";
+import { caseStudyLd, ldJson } from "@/lib/seo";
 
 export const dynamicParams = false;
 
@@ -19,10 +20,19 @@ export async function generateMetadata({ params }: PageProps<"/work/[slug]">): P
   if (!cs) return {};
   const title = `${cs.title} — ${site.hero.name}`;
   return {
-    title,
+    title: { absolute: title },
     description: cs.summary,
+    keywords: [cs.company, cs.role, ...cs.stack],
     alternates: { canonical: `/work/${cs.slug}` },
-    openGraph: { type: "article", title, description: cs.summary, url: `/work/${cs.slug}` },
+    openGraph: {
+      type: "article",
+      title,
+      description: cs.summary,
+      url: `/work/${cs.slug}`,
+      siteName: site.hero.name,
+      locale: "en_US",
+      authors: [site.hero.name],
+    },
     twitter: { card: "summary_large_image", title, description: cs.summary },
   };
 }
@@ -37,7 +47,8 @@ export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]"
 
   return (
     <>
-      <SiteHeader />
+      <script type="application/ld+json" dangerouslySetInnerHTML={ldJson(caseStudyLd(cs))} />
+      <SiteHeader title={cs.company} />
       <main id="main" className="case" style={{ "--c": cs.color } as React.CSSProperties}>
         <article className="wrap">
           <header className="case-hero">

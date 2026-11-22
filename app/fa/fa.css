@@ -1,0 +1,296 @@
+/* Persian (RTL) page. Scoped under .fa so it never touches the English pages. */
+
+.fa {
+  font-family: var(--font-vazir), Tahoma, system-ui, sans-serif;
+  line-height: 1.9;
+}
+
+.fa .fa-latin {
+  font-family: var(--font);
+  font-weight: 600;
+  font-size: 0.6em;
+  color: var(--muted);
+  unicode-bidi: isolate;
+}
+
+.fa-top {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+
+.fa-top-inner {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  min-height: 4.25rem;
+}
+
+.fa-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.fa-nav {
+  display: flex;
+  gap: 1.25rem;
+  margin-inline-start: auto;
+}
+
+.fa-nav a,
+.fa-lang {
+  text-decoration: none;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.fa-nav a:hover,
+.fa-lang:hover {
+  color: var(--ink);
+}
+
+.fa-lang {
+  font-family: var(--font);
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--paper);
+}
+
+.fa-hero {
+  display: grid;
+  grid-template-columns: 1fr minmax(0, 360px);
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: center;
+  padding-block: clamp(2.5rem, 7vw, 5rem);
+}
+
+.fa-hello {
+  margin: 0;
+  color: var(--violet);
+  font-weight: 700;
+}
+
+.fa h1 {
+  margin: 0.25rem 0 0.5rem;
+  font-size: clamp(2.25rem, 6vw, 3.75rem);
+  font-weight: 900;
+  line-height: 1.25;
+}
+
+.fa-role {
+  margin: 0 0 1rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.fa-lede {
+  margin: 0 0 1.75rem;
+  max-width: 62ch;
+  color: #2c3258;
+}
+
+.fa-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.fa-meta {
+  margin-top: 1.25rem;
+  color: var(--muted);
+}
+
+.fa-photo img {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-lg);
+  box-shadow: 10px 10px 0 var(--violet-soft);
+}
+
+.fa-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.fa-stats li {
+  display: flex;
+  flex-direction: column;
+  padding: 1.1rem 1.25rem;
+  border-radius: var(--radius);
+  background: var(--paper);
+  border: 1px solid var(--line);
+}
+
+.fa-stats strong {
+  font-size: 1.75rem;
+  font-weight: 900;
+  color: var(--violet);
+}
+
+.fa-stats span {
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.fa-section {
+  padding-block: clamp(2.5rem, 6vw, 4rem) 0;
+}
+
+.fa h2 {
+  margin: 0 0 1.25rem;
+  font-size: clamp(1.6rem, 4vw, 2.25rem);
+  font-weight: 900;
+}
+
+.fa h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 800;
+}
+
+.fa-jobs {
+  display: grid;
+  gap: 1rem;
+}
+
+.fa-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+  gap: 1rem;
+}
+
+.fa-card {
+  padding: clamp(1.1rem, 3vw, 1.75rem);
+  border-radius: var(--radius-lg);
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-inline-start: 5px solid var(--c, var(--violet));
+}
+
+.fa-card p {
+  margin: 0.4rem 0;
+}
+
+.fa-card-head {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.fa-logo {
+  border-radius: 14px;
+  flex: none;
+}
+
+.fa-role-block + .fa-role-block {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px dashed var(--line);
+}
+
+.fa-role-title {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.fa-card ul {
+  margin: 0.5rem 0 0;
+  padding-inline-start: 1.25rem;
+}
+
+.fa-card li + li {
+  margin-top: 0.35rem;
+}
+
+.fa-proj-name {
+  text-align: right;
+  font-family: var(--font);
+}
+
+.fa-small {
+  font-size: 0.9rem;
+}
+
+.fa-more {
+  display: inline-block;
+  margin-top: 0.75rem;
+  font-weight: 700;
+  color: var(--violet);
+}
+
+.fa-skills {
+  display: grid;
+  gap: 0.75rem;
+  margin: 0;
+}
+
+.fa-skills div {
+  padding: 1rem 1.25rem;
+  border-radius: var(--radius);
+  background: var(--paper);
+  border: 1px solid var(--line);
+}
+
+.fa-skills dt {
+  font-weight: 800;
+}
+
+.fa-skills dd {
+  margin: 0.25rem 0 0;
+  color: #2c3258;
+}
+
+.fa-contact {
+  padding-bottom: 1rem;
+}
+
+.fa-contact p {
+  max-width: 60ch;
+}
+
+.fa-footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding-block: 3rem 2rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+@media (max-width: 46rem) {
+  .fa-nav {
+    display: none;
+  }
+
+  .fa-lang {
+    margin-inline-start: auto;
+  }
+
+  .fa-hero {
+    grid-template-columns: 1fr;
+  }
+
+  .fa-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .fa-photo {
+    order: -1;
+    max-width: 220px;
+  }
+}

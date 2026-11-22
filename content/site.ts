@@ -78,6 +78,8 @@ export type Dictionary = {
     education: string;
     contact: string;
   };
+  /** Headline numbers for the mobile profile screen. Every figure is from the CV. */
+  highlights: { value: string; label: string }[];
   experience: Company[];
   projects: Project[];
   openSource: Project[];
@@ -147,6 +149,13 @@ const en: Dictionary = {
     education: "Education",
     contact: "Contact",
   },
+  highlights: [
+    { value: "7+", label: "years building products & teams" },
+    { value: "80%", label: "lower tech costs at Ahanonline" },
+    { value: "700", label: "suppliers on Gereft" },
+    { value: "30×", label: "more purchase requests, same team" },
+    { value: "150+", label: "paying physicians on Doctop" },
+  ],
   experience: [
     {
       id: "ahanonline",
