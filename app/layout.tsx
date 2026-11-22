@@ -20,6 +20,8 @@ export const metadata: Metadata = {
     description: site.meta.description,
     url: "/",
   },
+  robots: { index: true, follow: true, googleBot: { index: true, follow: true, "max-image-preview": "large" } },
+  authors: [{ name: site.hero.name, url: links.site }],
   twitter: { card: "summary_large_image", title: site.meta.title, description: site.meta.description },
 };
 

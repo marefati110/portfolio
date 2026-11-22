@@ -33,8 +33,25 @@ export default function Home() {
   const now: YM = [today.getFullYear(), today.getMonth() + 1];
   const d = site;
 
+  const personLd = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: d.hero.name,
+    jobTitle: d.hero.title,
+    description: d.meta.description,
+    url: links.site,
+    image: `${links.site}/profile.jpg`,
+    email: `mailto:${links.email}`,
+    address: { "@type": "PostalAddress", addressLocality: "Tehran", addressCountry: "IR" },
+    sameAs: [links.github, links.linkedin, links.telegram],
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(personLd).replace(/</g, "\\u003c") }}
+      />
       <SiteHeader />
 
       <main id="main">
