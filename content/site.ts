@@ -57,7 +57,6 @@ export type Dictionary = {
     spanCaption: string;
     present: string;
     email: string;
-    stickers: { value: string; label: string }[];
   };
   chat: {
     title: string;
@@ -113,11 +112,6 @@ const en: Dictionary = {
     spanCaption: "Career from December 2019 to today. The Gereft and Ahanonline roles run concurrently.",
     present: "Present",
     email: "Send an email",
-    stickers: [
-      { value: "−80%", label: "technology costs" },
-      { value: "30×", label: "operations throughput" },
-      { value: "150+", label: "paying physicians" },
-    ],
   },
   chat: {
     title: "Got a question?",

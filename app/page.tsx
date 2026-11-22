@@ -91,12 +91,6 @@ export default function Home() {
                 sizes="(min-width: 960px) 420px, 80vw"
               />
             </div>
-            {d.hero.stickers.map((s, i) => (
-              <p className={`sticker sticker-${i + 1}`} key={s.label}>
-                <strong>{s.value}</strong>
-                <span>{s.label}</span>
-              </p>
-            ))}
           </div>
         </section>
 

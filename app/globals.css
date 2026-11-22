@@ -277,7 +277,7 @@ a {
   box-shadow: 0 0 0 4px var(--mint-soft);
 }
 
-/* Photo with floating stat stickers */
+/* Photo */
 
 .hero-visual {
   position: relative;
@@ -300,88 +300,6 @@ a {
   width: 100%;
   height: 100%;
   object-fit: cover;
-}
-
-.sticker {
-  position: absolute;
-  display: grid;
-  margin: 0;
-  padding: 0.6rem 0.95rem 0.7rem;
-  border-radius: 16px;
-  background: var(--paper);
-  box-shadow:
-    0 0 0 2px var(--ink),
-    4px 5px 0 var(--ink);
-  line-height: 1.15;
-  animation: pop 520ms cubic-bezier(0.3, 1.6, 0.5, 1) both;
-}
-
-.sticker strong {
-  font-size: 1.6rem;
-  font-weight: 800;
-  letter-spacing: -0.03em;
-}
-
-.sticker span {
-  font-size: 0.8125rem;
-  font-weight: 500;
-  color: var(--muted);
-}
-
-.sticker-1 {
-  top: 6%;
-  left: -8%;
-  rotate: -7deg;
-  animation-delay: 250ms;
-}
-
-.sticker-1 strong {
-  color: var(--violet);
-}
-
-.sticker-2 {
-  top: 42%;
-  right: -9%;
-  rotate: 6deg;
-  animation-delay: 400ms;
-}
-
-.sticker-2 strong {
-  color: var(--pink);
-}
-
-.sticker-3 {
-  bottom: -6%;
-  left: 8%;
-  rotate: -3deg;
-  animation-delay: 550ms;
-}
-
-.sticker-3 strong {
-  color: var(--mint);
-}
-
-@keyframes pop {
-  from {
-    opacity: 0;
-    transform: scale(0.4);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-@media (max-width: 34rem) {
-  .sticker-1 {
-    left: -2%;
-  }
-  .sticker-2 {
-    right: -2%;
-  }
-  .sticker strong {
-    font-size: 1.3rem;
-  }
 }
 
 /* ---------- Career chart ---------- */
