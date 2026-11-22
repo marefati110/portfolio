@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { AskMe } from "@/components/AskMe";
+import { ChatDock } from "@/components/ChatDock";
 import { CareerSpan } from "@/components/CareerSpan";
 import { links, site, type YM } from "@/content/site";
 
@@ -70,9 +70,9 @@ export default function Home() {
               <a className="btn" href={`mailto:${links.email}`}>
                 {d.hero.email}
               </a>
-              <a className="btn btn-ghost" href={CV} download>
-                {d.nav.cv}
-              </a>
+              <button type="button" className="btn btn-ghost" data-open-chat>
+                Ask my AI assistant
+              </button>
             </div>
             <p className="hero-meta">
               <span className="pin" aria-hidden="true" />
@@ -96,21 +96,6 @@ export default function Home() {
 
         <section className="wrap timeline" aria-label="Career timeline">
           <CareerSpan now={now} />
-        </section>
-
-        <section className="ask wrap" aria-labelledby="ask-h">
-          <div className="ask-intro">
-            <h2 id="ask-h">{d.chat.title}</h2>
-            <p>{d.chat.intro}</p>
-            <p className="small muted">{d.chat.note}</p>
-          </div>
-          <AskMe
-            greeting={d.chat.greeting}
-            typing={d.chat.typing}
-            status={d.chat.status}
-            name={d.hero.name}
-            qa={d.chat.qa}
-          />
         </section>
 
         <section id="work" className="section wrap" aria-labelledby="work-h">
@@ -244,6 +229,16 @@ export default function Home() {
           </div>
         </section>
       </main>
+
+      <ChatDock
+        name={d.hero.name}
+        status={d.chat.status}
+        greeting={d.chat.greeting}
+        placeholder={d.chat.placeholder}
+        suggestions={d.chat.suggestions}
+        note={d.chat.note}
+        email={links.email}
+      />
 
       <footer className="footer wrap">
         <span>

@@ -1,0 +1,22 @@
+services:
+  portfolio:
+    image: ghcr.io/${GHCR_OWNER:?set GHCR_OWNER (your GitHub username, lowercase)}/portfolio:${IMAGE_TAG:-latest}
+    container_name: portfolio
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      NODE_ENV: production
+    ports:
+      - "${PORT:-3000}:3000"
+    read_only: true
+    tmpfs:
+      - /tmp
+      - /app/.next/cache
+    security_opt:
+      - no-new-privileges:true
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
