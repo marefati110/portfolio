@@ -9,10 +9,11 @@ export default function Image() {
     variant: "home",
     title: "Ali Marefati",
     subtitle: "AI Engineer & Product Leader",
-    stats: [
-      { value: "−80%", label: "technology costs" },
-      { value: "30×", label: "operations throughput" },
-      { value: "150+", label: "paying customers" },
+    contacts: [
+      { icon: "telegram", label: "Telegram", value: "@marefati110" },
+      { icon: "github", label: "GitHub", value: "marefati110" },
+      { icon: "email", label: "Email", value: "marefati110@gmail.com" },
+      { icon: "linkedin", label: "LinkedIn", value: "Ali Marefati" },
     ],
   });
 }
