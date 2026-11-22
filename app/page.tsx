@@ -1,69 +1,262 @@
 import Image from "next/image";
+import { AskMe } from "@/components/AskMe";
+import { CareerSpan } from "@/components/CareerSpan";
+import { links, site, type YM } from "@/content/site";
+
+const CV = "/cv/ali-marefati-cv.pdf";
+
+/** Split "a, b (c, d), e" on top-level commas only. */
+function splitList(text: string) {
+  const out: string[] = [];
+  let depth = 0;
+  let cur = "";
+  for (const ch of text) {
+    if (ch === "(") depth++;
+    if (ch === ")") depth--;
+    if ((ch === "," || ch === ";") && depth === 0) {
+      out.push(cur.trim());
+      cur = "";
+    } else cur += ch;
+  }
+  if (cur.trim()) out.push(cur.trim());
+  return out;
+}
+
+/** "Open source · Go, PostgreSQL" -> ["Open source", "Go", "PostgreSQL"] */
+const metaChips = (meta: string) => meta.split(" · ").flatMap(splitList);
+
+const projectTints = ["violet", "mint", "sun", "pink", "sky"] as const;
 
 export default function Home() {
+  // Static page: "now" is the build date. Rebuild to move the chart forward.
+  const today = new Date();
+  const now: YM = [today.getFullYear(), today.getMonth() + 1];
+  const d = site;
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
+    <>
+      <a className="skip" href="#main">
+        Skip to content
+      </a>
+
+      <header className="topbar">
+        <div className="topbar-inner wrap">
+          <a className="mark" href="#top">
+            <span className="mark-badge" aria-hidden="true">
+              AM
+            </span>
+            <span>{d.hero.name}</span>
           </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
+          <nav aria-label="Sections">
+            <a href="#work">{d.nav.work}</a>
+            <a href="#projects">{d.nav.projects}</a>
+            <a href="#skills">{d.nav.skills}</a>
+            <a href="#contact">{d.nav.contact}</a>
+          </nav>
+          <a className="btn btn-small" href={CV} download>
+            {d.nav.cv}
           </a>
         </div>
+      </header>
+
+      <main id="main">
+        <section className="hero wrap" id="top">
+          <div className="hero-text">
+            <p className="hello">{d.hero.hello}</p>
+            <h1>{d.hero.name}</h1>
+            <p className="role">{d.hero.title}</p>
+            <p className="lede">{d.hero.lede}</p>
+            <div className="hero-actions">
+              <a className="btn" href={`mailto:${links.email}`}>
+                {d.hero.email}
+              </a>
+              <a className="btn btn-ghost" href={CV} download>
+                {d.nav.cv}
+              </a>
+            </div>
+            <p className="hero-meta">
+              <span className="pin" aria-hidden="true" />
+              {d.hero.location}
+            </p>
+          </div>
+
+          <div className="hero-visual">
+            <div className="photo-frame">
+              <Image
+                src="/profile.jpg"
+                alt={`Portrait of ${d.hero.name}`}
+                width={640}
+                height={640}
+                priority
+                sizes="(min-width: 960px) 420px, 80vw"
+              />
+            </div>
+            {d.hero.stickers.map((s, i) => (
+              <p className={`sticker sticker-${i + 1}`} key={s.label}>
+                <strong>{s.value}</strong>
+                <span>{s.label}</span>
+              </p>
+            ))}
+          </div>
+        </section>
+
+        <section className="wrap timeline" aria-label="Career timeline">
+          <CareerSpan now={now} />
+        </section>
+
+        <section className="ask wrap" aria-labelledby="ask-h">
+          <div className="ask-intro">
+            <h2 id="ask-h">{d.chat.title}</h2>
+            <p>{d.chat.intro}</p>
+            <p className="small muted">{d.chat.note}</p>
+          </div>
+          <AskMe
+            greeting={d.chat.greeting}
+            typing={d.chat.typing}
+            status={d.chat.status}
+            name={d.hero.name}
+            qa={d.chat.qa}
+          />
+        </section>
+
+        <section id="work" className="section wrap" aria-labelledby="work-h">
+          <h2 id="work-h" className="section-title">
+            {d.sections.work}
+          </h2>
+          <div className="companies">
+            {d.experience.map((c) => (
+              <article
+                className="company"
+                id={c.id}
+                key={c.id}
+                style={{ "--c": c.color } as React.CSSProperties}
+              >
+                <header className="company-head">
+                  <Image src={c.logo} alt="" width={56} height={56} className="logo" />
+                  <div>
+                    <h3>{c.name}</h3>
+                    <p>{c.about}</p>
+                  </div>
+                </header>
+                <ol className="roles">
+                  {c.roles.map((r) => (
+                    <li className="role-item" key={r.title}>
+                      <div className="role-top">
+                        <h4>{r.title}</h4>
+                        <span className={`dates${r.end === null ? " is-now" : ""}`}>{r.dates}</span>
+                      </div>
+                      <ul>
+                        {r.bullets.map((b) => (
+                          <li key={b}>{b}</li>
+                        ))}
+                      </ul>
+                    </li>
+                  ))}
+                </ol>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section id="projects" className="section wrap" aria-labelledby="projects-h">
+          <h2 id="projects-h" className="section-title">
+            {d.sections.projects}
+          </h2>
+          <ul className="projects">
+            {d.projects.map((p, i) => (
+              <li key={p.name} className={`project tint-${projectTints[i % projectTints.length]}`}>
+                <h3>{p.name}</h3>
+                <p className="project-desc">{p.description}</p>
+                <ul className="chips" aria-label="Details">
+                  {metaChips(p.meta).map((m) => (
+                    <li key={m}>{m}</li>
+                  ))}
+                </ul>
+                {p.link && (
+                  <a className="project-link" href={p.link.href}>
+                    {p.link.label}
+                  </a>
+                )}
+              </li>
+            ))}
+          </ul>
+
+          <h3 className="sub-title">{d.sections.openSource}</h3>
+          <ul className="oss">
+            {d.openSource.map((p) => (
+              <li key={p.name}>
+                <a href={p.link?.href} className="oss-name">
+                  {p.name}
+                </a>
+                <p>{p.description}</p>
+                <ul className="chips">
+                  {metaChips(p.meta).map((m) => (
+                    <li key={m}>{m}</li>
+                  ))}
+                </ul>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <section id="skills" className="section wrap" aria-labelledby="skills-h">
+          <h2 id="skills-h" className="section-title">
+            {d.sections.skills}
+          </h2>
+          <dl className="skills">
+            {d.skills.map((s) => (
+              <div key={s.group}>
+                <dt>{s.group}</dt>
+                <dd>
+                  <ul className="chips chips-lg">
+                    {splitList(s.items).map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                </dd>
+              </div>
+            ))}
+            <div>
+              <dt>{d.sections.education}</dt>
+              <dd>
+                <ul className="chips chips-lg">
+                  <li>
+                    {d.education.degree}, {d.education.school}
+                  </li>
+                </ul>
+              </dd>
+            </div>
+          </dl>
+        </section>
+
+        <section id="contact" className="wrap" aria-labelledby="contact-h">
+          <div className="contact">
+            <h2 id="contact-h">Let&apos;s build something.</h2>
+            <p>{d.contact.lead}</p>
+            <a className="contact-mail" href={`mailto:${links.email}`}>
+              {links.email}
+            </a>
+            <div className="contact-links">
+              <a href={links.linkedin} rel="me">
+                {d.contact.linkedin}
+              </a>
+              <a href={links.github} rel="me">
+                {d.contact.github}
+              </a>
+              <a href={CV} download>
+                {d.contact.downloadCv}
+              </a>
+            </div>
+          </div>
+        </section>
       </main>
-    </div>
+
+      <footer className="footer wrap">
+        <span>
+          © {today.getFullYear()} {d.footer}
+        </span>
+        <span>marefati110.ir</span>
+      </footer>
+    </>
   );
 }
