@@ -1,9 +1,9 @@
+import Link from "next/link";
 import Image from "next/image";
-import { ChatDock } from "@/components/ChatDock";
+import { CV_PATH as CV, SiteFooter, SiteHeader, SocialCard } from "@/components/SiteChrome";
 import { CareerSpan } from "@/components/CareerSpan";
+import { getCaseStudy } from "@/content/caseStudies";
 import { links, site, type YM } from "@/content/site";
-
-const CV = "/cv/ali-marefati-cv.pdf";
 
 /** Split "a, b (c, d), e" on top-level commas only. */
 function splitList(text: string) {
@@ -35,29 +35,7 @@ export default function Home() {
 
   return (
     <>
-      <a className="skip" href="#main">
-        Skip to content
-      </a>
-
-      <header className="topbar">
-        <div className="topbar-inner wrap">
-          <a className="mark" href="#top">
-            <span className="mark-badge" aria-hidden="true">
-              AM
-            </span>
-            <span>{d.hero.name}</span>
-          </a>
-          <nav aria-label="Sections">
-            <a href="#work">{d.nav.work}</a>
-            <a href="#projects">{d.nav.projects}</a>
-            <a href="#skills">{d.nav.skills}</a>
-            <a href="#contact">{d.nav.contact}</a>
-          </nav>
-          <a className="btn btn-small" href={CV} download>
-            {d.nav.cv}
-          </a>
-        </div>
-      </header>
+      <SiteHeader />
 
       <main id="main">
         <section className="hero wrap" id="top">
@@ -115,6 +93,29 @@ export default function Home() {
                   <div>
                     <h3>{c.name}</h3>
                     <p>{c.about}</p>
+                    {(() => {
+                      const cs = getCaseStudy(c.id);
+                      return (
+                        cs && (
+                          <Link className="case-link" href={`/work/${cs.slug}`}>
+                            <span className="case-link-label">Read the case study</span>
+                            <span className="case-link-title">{cs.title}</span>
+                            <span className="case-link-arrow" aria-hidden="true">
+                              <svg viewBox="0 0 24 24" width="16" height="16">
+                                <path
+                                  d="M5 12h13M13 6l6 6-6 6"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  strokeWidth="2.4"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                              </svg>
+                            </span>
+                          </Link>
+                        )
+                      );
+                    })()}
                   </div>
                 </header>
                 <ol className="roles">
@@ -208,6 +209,10 @@ export default function Home() {
           </dl>
         </section>
 
+        <section className="wrap socials-section" aria-label="Social links">
+          <SocialCard />
+        </section>
+
         <section id="contact" className="wrap" aria-labelledby="contact-h">
           <div className="contact">
             <h2 id="contact-h">Let&apos;s build something.</h2>
@@ -230,22 +235,7 @@ export default function Home() {
         </section>
       </main>
 
-      <ChatDock
-        name={d.hero.name}
-        status={d.chat.status}
-        greeting={d.chat.greeting}
-        placeholder={d.chat.placeholder}
-        suggestions={d.chat.suggestions}
-        note={d.chat.note}
-        email={links.email}
-      />
-
-      <footer className="footer wrap">
-        <span>
-          © {today.getFullYear()} {d.footer}
-        </span>
-        <span>marefati110.ir</span>
-      </footer>
+      <SiteFooter socials={false} />
     </>
   );
 }

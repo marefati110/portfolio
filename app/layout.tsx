@@ -19,8 +19,8 @@ export const metadata: Metadata = {
     title: site.meta.title,
     description: site.meta.description,
     url: "/",
-    images: [{ url: "/profile.jpg", width: 640, height: 640 }],
   },
+  twitter: { card: "summary_large_image", title: site.meta.title, description: site.meta.description },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

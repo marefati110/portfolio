@@ -9,6 +9,7 @@ export const links = {
   email: "marefati110@gmail.com",
   github: "https://github.com/marefati110",
   linkedin: "https://www.linkedin.com/in/ali-marefati-749499177/",
+  telegram: "https://t.me/marefati110",
   site: "https://marefati110.ir",
 };
 
